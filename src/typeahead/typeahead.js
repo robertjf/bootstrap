@@ -380,7 +380,8 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
       link:function (scope, element, attrs) {
         var tplUrl = $parse(attrs.templateUrl)(scope.$parent) || 'template/typeahead/typeahead-match.html';
         $http.get(tplUrl, {cache: $templateCache}).success(function(tplContent){
-           element.replaceWith($compile(tplContent.trim())(scope));
+          // The trim function is not supported in IE8, and removing it doesn't seem to affect the template at all...
+           element.replaceWith($compile(tplContent)(scope));
         });
       }
     };
